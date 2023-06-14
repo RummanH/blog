@@ -14,7 +14,8 @@ const postSchema = new Schema(
     likes: {
       type: Number,
       default: 0
-    }
+    },
+    photo: String
   },
   {
     timestamps: true,
@@ -23,8 +24,14 @@ const postSchema = new Schema(
   }
 );
 
+postSchema.virtual('comments', {
+  ref: 'Comment',
+  foreignField: 'post_id',
+  localField: '_id'
+});
+
 postSchema.pre(/^find/, function (next) {
-  this.populate("author")
+  this.populate('author').populate('comments');
   next();
 });
 

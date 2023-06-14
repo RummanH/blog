@@ -5,8 +5,7 @@ const {
   httpLoginUser,
   httpForgotPassword,
   httpResetPassword,
-  httpChangePassword,
-  httpProtect,
+  httpChangePassword
 } = require('../controllers/auth.controller');
 const {
   httpUpdateMe,
@@ -14,7 +13,7 @@ const {
   httpGetAllUsers,
   httpGetOneUser,
   httpUpdateUser,
-  httpDeleteUser,
+  httpDeleteUser
 } = require('../controllers/users.controller');
 const catchAsync = require('../services/catchAsync');
 

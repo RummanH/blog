@@ -17,6 +17,7 @@ async function httpSignupUser(req, res, next) {
     return next(new AppError('User already exist!', 400));
   }
   const user = await saveUser(req.body);
+  user.password = undefined;
 
   return res.status(201).json({ status: 'success', data: { user } });
 }

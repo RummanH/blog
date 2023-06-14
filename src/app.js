@@ -6,12 +6,14 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
 const hpp = require('hpp');
+const path = require('path');
 
 const globalErrorHandler = require('./controllers/error.controller');
 const apiV1Router = require('./routes/api.v1.router');
 const AppError = require('./services/AppError');
 
 const app = express();
+app.use(express.static(path.join(__dirname, '.', 'public')));
 
 // Set security HTTP headers
 app.use(helmet());
@@ -20,7 +22,7 @@ app.use(helmet());
 app.use(
   cors({
     origin: '*',
-    credentials: true,
+    credentials: true
   })
 );
 
@@ -28,7 +30,7 @@ app.use(
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
-  message: 'Too many request from this IP, please try again in an hour!',
+  message: 'Too many request from this IP, please try again in an hour!'
 });
 app.use('/api', limiter);
 
@@ -49,7 +51,7 @@ app.use(xss());
 // Prevent parameter pollution
 app.use(
   hpp({
-    whitelist: ['userNumber'],
+    whitelist: ['userNumber']
   })
 );
 
