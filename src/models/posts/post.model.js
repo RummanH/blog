@@ -12,19 +12,16 @@ const Post = require('./posts.mongo');
 // }
 async function getAllPosts(queryString) {
   let query = Post.find();
-  let userId = queryString;
-  if (userId === 'undefined' || userId === 'null') {
+  let { userId } = queryString;
+  if (queryString.userId === 'undefined' || queryString.userId === 'null') {
     userId = undefined;
   }
   if (userId) {
     // Fetch posts based on userId
-    query = query.where('author').equals(userId);
+    query = query.where('author').equals(queryString.userId);
   }
 
-  const posts = await query.populate({
-    path: 'author',
-    select: 'username email_verified thumbnail',
-  }).sort({ createdAt: -1 }).exec();
+  const posts = await query.populate('author').sort({ createdAt: -1 }).exec();
 
   return posts;
 }
