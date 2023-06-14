@@ -1,4 +1,4 @@
-const ApiFeatures = require('../../services/ApiFeatures');
+// const ApiFeatures = require('../../services/ApiFeatures');
 const Post = require('./posts.mongo');
 
 // async function getAllPosts(queryString) {
@@ -12,8 +12,8 @@ const Post = require('./posts.mongo');
 // }
 async function getAllPosts(queryString) {
   let query = Post.find();
-  let userId = queryString.userId;
-  if (queryString.userId == 'undefined' || queryString.userId == 'null') {
+  let userId = queryString;
+  if (userId === 'undefined' || userId === 'null') {
     userId = undefined;
   }
   if (userId) {
